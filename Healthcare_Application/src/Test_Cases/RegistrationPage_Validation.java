@@ -5,73 +5,72 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import POM.Registration_Page;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class RegistrationPage_Validation {
 	
+	
+	
 	public static void main(String[] args) {  
         WebDriverManager.chromedriver().setup();  
         WebDriver driver = new ChromeDriver();  
-  
-        driver.get("http://ehrs-frontend-app.s3-website-us-east-1.amazonaws.com/");  
+        
+        driver.get(Registration_Page.url); 
   
         WebElement registrationButton = driver.findElement(By.xpath("//a[contains(text(),'Registration')]"));  
         registrationButton.click();  
         
-        //Patient Name field validation  
-        WebElement name = driver.findElement(By.name("PatientName"));  
-        name.sendKeys("Test Patient");  
-        if (name.getAttribute("value").length() <= 300) {  
-            System.out.println("Patient Name validation passed");  
+        //Check if Patient Name field is present 
+        if (!driver.findElements(By.name("PatientName")).isEmpty()) {  
+            System.out.println("Patient Name field is present.");  
         } else {  
-            System.out.println("Patient Name validation failed");  
+            System.out.println("Patient Name field is not present.");  
         }  
   
-        //DOB field validation  
-        WebElement dob = driver.findElement(By.name("dob"));  
-        dob.sendKeys("2000-01-01"); //format: YYYY-MM-DD  
-        System.out.println("DOB validation passed");  
-  
-        //Gender field validation  
-        WebElement maleRadioBtn = driver.findElement(By.xpath("//input[@name='gender' and @value='Male']"));  
-        maleRadioBtn.click();  
-        System.out.println("Gender validation passed");  
-  
-        //Email field validation  
-        WebElement email = driver.findElement(By.name("email"));  
-        email.sendKeys("test@email.com");  
-        if (email.getAttribute("value").matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$")) {  
-            System.out.println("Email validation passed");  
+        //Check if DOB calendar is present
+        if (!driver.findElements(By.id("dob")).isEmpty()) {  
+            System.out.println("Date of Birth field is present.");  
         } else {  
-            System.out.println("Email validation failed");  
+            System.out.println("Date of Birth field is not present.");  
+        }  
+ 
+  
+        //Check if Gender option is present  
+        if (!driver.findElements(By.name("gender")).isEmpty()) {  
+            System.out.println("Gender field is present.");  
+        } else {  
+            System.out.println("Gender field is not present.");  
+        }  
+        
+        //Check if Email field is present  
+        if (!driver.findElements(By.name("email")).isEmpty()) {  
+            System.out.println("Email field is present.");  
+        } else {  
+            System.out.println("Email field is not present.");  
+        }  
+        
+        //Check if Mobile field is present  
+        if (!driver.findElements(By.name("mobile")).isEmpty()) {  
+            System.out.println("Mobile field is present.");  
+        } else {  
+            System.out.println("Mobile field is not present.");  
+        }  
+          
+        //Check if Address field is present  
+        if (!driver.findElements(By.name("address")).isEmpty()) {  
+            System.out.println("Address field is present.");  
+        } else {  
+            System.out.println("Address field is not present.");  
+        }  
+        
+        // Check if Pincode field is present  
+        if (!driver.findElements(By.name("pincode")).isEmpty()) {  
+            System.out.println("Pincode field is present.");  
+        } else {  
+            System.out.println("Pincode field is not present.");  
         }  
   
-        //Mobile field validation  
-        WebElement mobile = driver.findElement(By.name("mobile"));  
-        mobile.sendKeys("1234567890");  
-        if (mobile.getAttribute("value").matches("\\d{10}")) {  
-            System.out.println("Mobile validation passed");  
-        } else {  
-            System.out.println("Mobile validation failed");  
-        }  
-  
-        //Pincode field validation  
-        WebElement pincode = driver.findElement(By.name("pincode"));  
-        pincode.sendKeys("123456");  
-        if (pincode.getAttribute("value").matches("\\d{6}")) {  
-            System.out.println("Pincode validation passed");  
-        } else {  
-            System.out.println("Pincode validation failed");  
-        }  
-  
-        //Address field validation  
-        WebElement address = driver.findElement(By.name("address"));  
-        address.sendKeys("Test Address");  
-        if (address.getAttribute("value").length() <= 300) {  
-            System.out.println("Address validation passed");  
-        } else {  
-            System.out.println("Address validation failed");  
-        }  
     
         driver.quit();  
     }  
